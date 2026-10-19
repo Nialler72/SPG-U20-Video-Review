@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>SPG U20 Video Review</title><style>
+body{margin:0;background:#101820;color:#f4f6f8;font:16px Arial,sans-serif}main{max-width:950px;margin:auto;padding:20px}#frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}#player{position:absolute;inset:0;width:100%;height:100%}#player iframe{width:100%!important;height:100%!important}button{padding:12px 18px;margin:7px 7px 7px 0;background:#e5bb56;border:0;border-radius:8px;font-weight:bold;cursor:pointer}li{padding:9px}li.active{color:#e5bb56}a{color:#e5bb56}.muted{color:#c2cbd2}
+</style></head><body><main><h1>SPG U20 — Video Review</h1><p class="muted">Three selected moments from the Killeshin match. Clip end times are provisional.</p>
+<div id="frame"><div id="player"></div></div>
+<button id="start">▶ Play review</button><button id="next">Next clip →</button><button id="prev">← Previous</button>
+<p id="status">Loading player…</p><ol id="playlist"></ol>
+<p class="muted">If the embedded video remains black, <a href="https://youtu.be/0-e8gX5V73s" target="_blank" rel="noopener">open the original on YouTube</a>. YouTube may restrict embedded playback or automatic transitions.</p>
+<script>
+const clips=[
+{videoId:"0-e8gX5V73s",start:0,end:10,title:"Clip 1 — Recovery effort"},
+{videoId:"0-e8gX5V73s",start:53,end:65,title:"Clip 2 — Forward pass"},
+{videoId:"0-e8gX5V73s",start:77,end:89,title:"Clip 3 — Sideline pass"}
+];
+let player=null,ready=false,index=0,started=false,changing=false,timer=null;
+const status=document.getElementById("status"),list=document.getElementById("playlist");
+function draw(){list.innerHTML=clips.map((c,i)=>'<li class="'+(started&&i===index?'active':'')+'">'+c.title+' ('+c.start+'s–'+c.end+'s)</li>').join("");if(started)status.textContent=clips[index].title}
+function load(i){if(!ready){status.textContent="Waiting for YouTube…";return}index=i;started=true;changing=true;draw();const c=clips[i];player.loadVideoById({videoId:c.videoId,startSeconds:c.start,endSeconds:c.end});setTimeout(()=>changing=false,600)}
+function next(){if(index+1<clips.length)load(index+1);else{started=false;clearInterval(timer);player.pauseVideo();status.textContent="Review complete";draw()}}
+document.getElementById("start").onclick=()=>load(0);
+document.getElementById("next").onclick=()=>started?next():load(0);
+document.getElementById("prev").onclick=()=>load(Math.max(0,index-1));
+window.onYouTubeIframeAPIReady=function(){player=new YT.Player("player",{width:"100%",height:"100%",videoId:clips[0].videoId,playerVars:{playsinline:1,rel:0,enablejsapi:1,origin:location.origin},events:{onReady:function(){ready=true;status.textContent="Ready — press Play review";draw();timer=setInterval(()=>{if(!started||changing)return;let c=clips[index],t=player.getCurrentTime();if(t>=c.end-.1)next()},250)},onStateChange:function(e){if(e.data===YT.PlayerState.ENDED&&started&&!changing)next()},onError:function(e){status.textContent="YouTube embed error "+e.data+" — try the original YouTube link"}}})};
+draw();const s=document.createElement("script");s.src="https://www.youtube.com/iframe_api";document.head.appendChild(s);
+</script></main></body></html>
