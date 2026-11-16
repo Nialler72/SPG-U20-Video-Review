@@ -2,7 +2,7 @@
 Match: 13 November 2026. SPG 3–11, Na Fianna Óg 1–9.
 
 ## Status
-The GitHub copy is prepared on `na-fianna-og-player-review`, separate from the existing match-review pages. It is not yet published to GitHub Pages: the six original chart PNGs still need to be imported from the existing Site or exported from Liam’s original PDF. The current file workspace is unavailable, so binary chart transfer and browser verification could not be completed in this session.
+All six original chart PNGs have been recovered from the existing Site and added to this branch. The new review remains separate from the older pages. GitHub Pages currently builds `main` from the repository root; its latest build and deployment succeeded. Browser verification and publication of this draft remain pending.
 
 Existing published Site: https://spg-u20-player-review.user36537288929.chatgpt.site/
 
@@ -43,7 +43,7 @@ The ellipse is a separate SVG overlay in the HTML. Do not paint over or alter th
 The Shots Timeline ends at **23–24**, while Liam’s written half-by-half figures total **22–23**. The page labels this source difference without changing either.
 
 ## Finish and publish
-1. Import the six original PNGs into `graphics/` on the same branch.
+1. Completed: all six original PNGs are present in `graphics/` on this branch.
 2. Open the HTML and verify the enlarged text, all 14 clips, six original charts, the ellipse and the full-size chart dialog.
 3. Merge this branch into `main` using the existing GitHub Pages root deployment.
 
